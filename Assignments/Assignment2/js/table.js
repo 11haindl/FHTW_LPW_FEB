@@ -1,43 +1,130 @@
-class table{
+class table {
 
-    createTable(users){
+    createTable(users) {
+        this.buildTableHead(users[0]);
         for (let user of users) {
-            $('tbody').append(`
-            <tr id="${user.id}">
-                <td>
-                    ${user.id}
-                </td>
-                <td>
-                    ${user.firstName}
-                </td>
-                <td>
-                    ${user.lastName}
-                </td>
-                <td>
-                    ${user.age}
-                </td>
-            </tr>`);
-            this.appendUserDetailRow(user);
+            this.buildTableBody(user);
+            this.getRowEntries(user);
         }
-    
-        this.handleRowClick();
+        this.handleRowClick(users);
+
     }
 
-    handleRowClick(){
+    buildTableHead(user) {
+        let columnIndex = 0;
+        for (const key of Object.keys(user)) {
+            if (columnIndex > 3) {
+                break;
+            }
+            $('#table-head').append(`
+                <th scope="col">${key}</th>
+            `);
+            columnIndex++;
+        }
+
+    }
+
+    buildTableBody(user) {
+        let id = Object.values(user)[0];
+        $('tbody').append(`<tr id="${id}"></tr>`);
+        //this.appendUserDetailRow(user)
+    }
+
+    getRowEntries(user) {
+        let id = Object.values(user)[0];
+        let columnIndex = 0;
+        for (const value of Object.values(user)) {
+            if (columnIndex > 3) {
+                break;
+            }
+            $('#' + id).append(`
+                <td>${value}</td>
+            `);
+            columnIndex++;
+        }
+    }
+
+    handleRowClick(users) {
+        let self = this;
         let $tableRow = $("#userTable tr");
         $tableRow.on("click", function () {
             let rowId = $(this).attr('id');
             let $detailRow = $('#detail-' + rowId);
-            if($detailRow.attr("hidden")){
-                $detailRow.removeAttr("hidden");
+            console.log(rowId);
+            console.log('#detail-' + rowId);
+            if ($detailRow.length) {
+                $detailRow.remove();
             } else {
-                $detailRow.attr("hidden", "true");
+                $('#' + rowId).after(self.appendUserDetailRow(users[rowId - 1]));
             }
-            
         });
     }
 
-    appendUserDetailRow(user){
+    appendUserDetailRow(user) {
+        let id = Object.values(user)[0];
+        let rowToAppend = `
+        <tr id="detail-${id}">
+            <td colspan="4" class="joinCell">
+                <div id="detail-info-${id}">
+                    ${this.buildDetailTable(user)}
+                </div>
+            </td>
+        </tr>`;
+        return rowToAppend;
+    }
+
+    buildDetailTable(object) {
+        let detailTable = `
+        <table class="table table-warning mb-0">
+            <tbody>
+                ${this.getDetailEntries(object)}
+            </tbody>
+        </table>
+        `;
+        return detailTable;
+    }
+
+    getDetailEntries(object) {
+
+        let rows = "";
+        for (let [key, value] of Object.entries(object)) {
+            let row = "";
+            if (typeof value === 'object' && value != null) {
+                row = `
+                <tr>
+                    <th>${key}:</th>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="joinCell">
+                        ${this.buildDetailTable(value)}
+                    </td>
+                </tr>
+                `;
+            } else {
+                row = `
+                <tr>
+                    <th>${key}:</th>
+                    <td>${value}</td>
+                </tr>
+                `;
+            }
+            console.log(row);
+            console.log("key: " + key +", value: " + value); 
+            rows += row;
+        }
+        return rows;
+    }
+
+    getDetailedInformation(user) {
+        let id = Object.values(user)[0];
+        $('#' + id).append(`
+            
+        `);
+    }
+
+    /*appendUserDetailRow(user) {
         $('tbody').append(`
         <tr hidden="true" id="detail-${user.id}">
             <td colspan="4">
@@ -107,5 +194,5 @@ class table{
                 </div>
             </td>
         </tr>`);
-    }
+    }*/
 }

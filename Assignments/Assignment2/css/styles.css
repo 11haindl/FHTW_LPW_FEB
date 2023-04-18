@@ -5,3 +5,14 @@ ul {
 .table tr {
     cursor: pointer;
 }
+
+.table tr:last-child{
+    border-bottom: hidden;
+}
+
+.joinCell {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    padding-left: 2rem !important;
+    padding-right: 0px !important;
+}

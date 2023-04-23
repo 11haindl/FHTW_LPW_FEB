@@ -18,7 +18,7 @@ class table {
      * create the main table by building the head row,
      * loop through all users in the given object to get a row for every user.
      * table rows should react when clicked
-     * @param {object} users 
+     * @param {any} users 
      */
     createTable(users) {
         this.buildTableHead(users[0]);
@@ -32,7 +32,7 @@ class table {
      * loop through the keys of the given object
      * break up condition: columnIndex reaches the number of columns to display
      * append a th cell for every key in object
-     * @param {object} object 
+     * @param {any} object 
      */
     buildTableHead(object) {
         let columnIndex = 0;
@@ -52,7 +52,7 @@ class table {
      * break up condition: columnIndex reaches the number of columns to display
      * add a cell to the row for every value,
      * append the row to the table body
-     * @param {object} object 
+     * @param {any} object 
      */
     buildTableBody(object) {
         let newRow = new row(object.id);
@@ -72,7 +72,7 @@ class table {
      * get the id of the clicked row
      * $rowDetail is an id for a new row. If the row with this id already exists,
      * remove the row from the table, otherwise create it after the clicked row
-     * @param {object} users 
+     * @param {any} users 
      */
     handleRowClick(users) {
         let self = this;
@@ -95,7 +95,7 @@ class table {
      * - class for specific design
      * create a new table that will be a subtable of the main table
      * add a Cell to the created row with content of the created subtable
-     * @param {object} object 
+     * @param {any} object 
      * @returns {string} - html row with detailed information
      */
     getUserDetailRow(object) {
@@ -109,7 +109,7 @@ class table {
     /**
      * make html code of a table with body,
      * inside the body get all the entries needed
-     * @param {object} object 
+     * @param {any} object 
      * @returns {string} - html table for subtable
      */
     buildSubtable(object) {
@@ -124,7 +124,7 @@ class table {
 
     /**
      * For every key-value pair in the object, get the correct rows to display
-     * @param {object} object 
+     * @param {any} object 
      * @returns {string} - rows of a table
      */
     getDetailEntries(object) {

@@ -25,7 +25,6 @@ class cell {
         } else {
             html = `<${this.type}>${this.content}</${this.type}>`;
         }
-        console.log(html);
         return html;
     }
 }

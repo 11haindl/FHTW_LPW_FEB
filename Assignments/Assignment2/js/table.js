@@ -55,8 +55,7 @@ class table {
      * @param {object} object 
      */
     buildTableBody(object) {
-        let id = Object.values(object)["id"];
-        let newRow = new row(id);
+        let newRow = new row(object.id);
         let columnIndex = 0;
         for (const value of Object.values(object)) {
             if (columnIndex > this.columnNumber - 1) {
@@ -100,8 +99,7 @@ class table {
      * @returns {string} - html row with detailed information
      */
     getUserDetailRow(object) {
-        let id = Object.values(object)["id"];
-        let newRow = new row(`detail-${id}`);
+        let newRow = new row(`detail-${object.id}`);
         let attributes = `colspan="${this.columnNumber}" class="joinCell"`;
         let subtable = new table("", "subtable-body", 0);
         newRow.addCell("td", attributes, subtable.buildSubtable(object));
